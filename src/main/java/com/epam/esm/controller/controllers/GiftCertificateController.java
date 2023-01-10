@@ -39,7 +39,7 @@ public class GiftCertificateController {
             log.info("get certificate " + certificateModel +" by id "  + certId);
             return new ResponseEntity<>(certificateModel, HttpStatus.OK);
         }
-        log.debug("certificateModel is null");
+        log.error("certificateModel is null");
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
@@ -54,7 +54,7 @@ public class GiftCertificateController {
             log.info("get all certificate " + certificateModels);
             return new ResponseEntity<>(certificateModels,HttpStatus.OK);
         }
-        log.debug("certificateModels is null");
+        log.error("certificateModels is empty");
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -70,6 +70,7 @@ public class GiftCertificateController {
             log.info("certificate " + certificateModel.getName() +  " was inserted");
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
+        log.error("certificate is null");
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
@@ -86,6 +87,7 @@ public class GiftCertificateController {
             log.info("gift certificate " + giftCertificateModel.getName() + " was deleted");
             return new ResponseEntity<>(HttpStatus.OK);
         }
+        log.error("certificate model is null");
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
@@ -104,6 +106,7 @@ public class GiftCertificateController {
             log.info("gift certificate " + certificateModel.getId() +  " was updated with name" + name);
             return new ResponseEntity<>(HttpStatus.OK);
         }
+        log.error("certificate model is null");
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 

@@ -1,12 +1,11 @@
 package com.epam.esm.controller.configuration;
 
-import com.epam.esm.model.config.HibernateConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{HibernateConfig.class};
+        return new Class[0];
     }
 
     @Override

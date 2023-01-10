@@ -4,9 +4,9 @@ import com.epam.esm.model.dao.GiftCertificateDao;
 import com.epam.esm.model.entity.GiftCertificate;
 import com.epam.esm.model.entity.Tag;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +24,7 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
     @Override
     public GiftCertificate getById(Long id) {
         Session session = sessionFactory.getCurrentSession();
-        GiftCertificate giftCertificate = (GiftCertificate) session.get(GiftCertificate.class,id);
+        GiftCertificate giftCertificate = session.get(GiftCertificate.class,id);
         log.info("get giftCertificate " + giftCertificate.getName() + " by id from table -> " + id);
         return giftCertificate;
     }
@@ -32,7 +32,7 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
     @Override
     public List<GiftCertificate> getAll() {
         Session session = sessionFactory.getCurrentSession();
-        List<GiftCertificate> giftCertificates = session.createQuery("from gift_certificate").list();
+        List<GiftCertificate> giftCertificates = session.createQuery(" from gift_certificate").list();
         log.info("got list of giftCertificate from table " + giftCertificates);
         return giftCertificates;
     }
@@ -61,13 +61,13 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
     @Override
     public Map<List<GiftCertificate>, List<Tag>> getCertificatesWithTagsByPartOfDescription(String description) {
         Session session = sessionFactory.getCurrentSession();
-        Query firstQuery = session.createQuery("from tag t join t.certificates c where c.description like ?");
-        firstQuery.setString(0,"%"+description+"%");
+        Query<Tag> firstQuery = session.createQuery("from tag t join t.certificates c where c.description like ?");
+        firstQuery.setParameter(0,"%"+description+"%");
         List<Tag> tags = firstQuery.list();
         log.info("get " + tags + " by certificate's description -> " + description);
 
         Query secondQuery = session.createQuery("from gift_certificate where description like ?");
-        secondQuery.setString(0,"%"+description+"%");
+        secondQuery.setParameter(0,"%"+description+"%");
         List<GiftCertificate> giftCertificates = secondQuery.list();
         log.info("get " + giftCertificates+  " by certificate's description -> " + description);
 
@@ -81,11 +81,11 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
     public Map<List<GiftCertificate>, List<Tag>> getCertificatesWithTagsSortByCreateDateASC() {
         Session session = sessionFactory.getCurrentSession();
         List<Tag> tags =  session.
-                createQuery("from tag t join t.certificates c order by c.create_date asc").list();
+                createQuery("from tag t join t.certificates c order by c.createDate asc").list();
         log.info("get tags order by certificate's create date - > " + tags);
 
         List<GiftCertificate> certificates = session.
-                createQuery("from gift_certificate c order by c.create_date asc").list();
+                createQuery("from gift_certificate c order by c.createDate asc").list();
         log.info("get certificates order by certificate's create date -> " + certificates);
         Map<List<GiftCertificate>, List<Tag>> result = new HashMap<>();
         result.put(certificates,tags);

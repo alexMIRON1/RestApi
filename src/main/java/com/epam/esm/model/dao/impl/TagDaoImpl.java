@@ -4,9 +4,9 @@ import com.epam.esm.model.dao.TagDao;
 import com.epam.esm.model.entity.GiftCertificate;
 import com.epam.esm.model.entity.Tag;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +24,7 @@ public class TagDaoImpl implements TagDao {
     @Override
     public Tag getById(Long id) {
         Session session = sessionFactory.getCurrentSession();
-        Tag tag = (Tag) session.get(Tag.class,id);
+        Tag tag = session.get(Tag.class,id);
         log.info("get tag " + tag.getName() + " from table by id " + id );
         return tag;
     }
