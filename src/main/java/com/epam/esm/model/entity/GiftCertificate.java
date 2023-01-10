@@ -14,7 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.time.Instant;
-import java.time.LocalDate;
+import java.time.Period;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,7 +37,7 @@ public class GiftCertificate {
     @Column(name = "price")
     private Double price;
     @Column(name = "duration")
-    private LocalDate duration;
+    private Period duration;
     @Column(name = "create_date")
     private Instant createDate;
     @Column(name = "last_update_date")

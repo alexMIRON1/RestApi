@@ -25,7 +25,7 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
     public GiftCertificate getById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         GiftCertificate giftCertificate = (GiftCertificate) session.get(GiftCertificate.class,id);
-        log.info("got giftCertificate by id from table");
+        log.info("get giftCertificate " + giftCertificate.getName() + " by id from table -> " + id);
         return giftCertificate;
     }
 
@@ -33,7 +33,7 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
     public List<GiftCertificate> getAll() {
         Session session = sessionFactory.getCurrentSession();
         List<GiftCertificate> giftCertificates = session.createQuery("from gift_certificate").list();
-        log.info("got  list of giftCertificate from table");
+        log.info("got list of giftCertificate from table " + giftCertificates);
         return giftCertificates;
     }
 
@@ -41,21 +41,21 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
     public void insert(GiftCertificate item) {
         Session session = sessionFactory.getCurrentSession();
         session.save(item);
-        log.info("successfully created giftCertificate in table");
+        log.info("successfully created giftCertificate in table " + item.getName());
     }
 
     @Override
-    public void removeById(Long id) {
+    public void remove(GiftCertificate item) {
         Session session = sessionFactory.getCurrentSession();
-        session.delete(id);
-        log.info("successfully deleted giftCertificate from table");
+        session.delete(item);
+        log.info("successfully deleted giftCertificate from table -> " + item.getName());
     }
 
     @Override
     public void update(GiftCertificate item) {
         Session session = sessionFactory.getCurrentSession();
         session.merge(item);
-        log.info("successfully updated giftCertificate's information in table");
+        log.info("successfully updated giftCertificate's information in table -> " + item.getName());
     }
 
     @Override
@@ -64,16 +64,16 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
         Query firstQuery = session.createQuery("from tag t join t.certificates c where c.description like ?");
         firstQuery.setString(0,"%"+description+"%");
         List<Tag> tags = firstQuery.list();
-        log.info("get tags by certificate's description");
+        log.info("get " + tags + " by certificate's description -> " + description);
 
         Query secondQuery = session.createQuery("from gift_certificate where description like ?");
         secondQuery.setString(0,"%"+description+"%");
         List<GiftCertificate> giftCertificates = secondQuery.list();
-        log.info("get certificates by certificate's description");
+        log.info("get " + giftCertificates+  " by certificate's description -> " + description);
 
         Map<List<GiftCertificate>, List<Tag>> result = new HashMap<>();
         result.put(giftCertificates,tags);
-        log.info("make map with gift certificates and tags");
+        log.info("make map " + result +  " with gift certificates and tags");
         return result;
     }
 
@@ -82,14 +82,14 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
         Session session = sessionFactory.getCurrentSession();
         List<Tag> tags =  session.
                 createQuery("from tag t join t.certificates c order by c.create_date asc").list();
-        log.info("get tags order by certificate's create date");
+        log.info("get tags order by certificate's create date - > " + tags);
 
         List<GiftCertificate> certificates = session.
                 createQuery("from gift_certificate c order by c.create_date asc").list();
-        log.info("get certificates order by certificate's create date");
+        log.info("get certificates order by certificate's create date -> " + certificates);
         Map<List<GiftCertificate>, List<Tag>> result = new HashMap<>();
         result.put(certificates,tags);
-        log.info("make map with gift certificates and tags");
+        log.info("make map " + result + "with gift certificates and tags");
         return result;
     }
 }

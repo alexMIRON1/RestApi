@@ -19,7 +19,7 @@ public interface GiftCertificateDao extends CRUDDao<GiftCertificate>{
     Map<List<GiftCertificate>,List<Tag>> getCertificatesWithTagsByPartOfDescription(String description);
 
     /**
-     * Methor for getting map where key is list of certificates, values is list of tags from table sort by create date asc
+     * Method for getting map where key is list of certificates, values is list of tags from table sort by create date asc
      * @return map where key is list of certificates, values is list of tags
      */
     Map<List<GiftCertificate>, List<Tag>> getCertificatesWithTagsSortByCreateDateASC();

@@ -1,10 +1,9 @@
 package com.epam.esm.service.dto;
 
-import com.epam.esm.model.entity.Tag;
 import lombok.Data;
 
 import java.time.Instant;
-import java.time.LocalDate;
+import java.time.Period;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,7 +11,7 @@ import java.util.Set;
 public class GiftCertificateModel {
     private Long id;
 
-    private Set<Tag> tags = new HashSet<>();
+    private Set<TagModel> tags = new HashSet<>();
 
     private String name;
 
@@ -20,9 +19,17 @@ public class GiftCertificateModel {
 
     private Double price;
 
-    private LocalDate duration;
+    private Period duration;
 
     private Instant createDate;
 
     private Instant lastUpdate;
+    public void addTag(TagModel tag){
+        this.tags.add(tag);
+        tag.getCertificates().add(this);
+    }
+    public void removeTag(TagModel tag){
+        this.tags.remove(tag);
+        tag.getCertificates().remove(this);
+    }
 }

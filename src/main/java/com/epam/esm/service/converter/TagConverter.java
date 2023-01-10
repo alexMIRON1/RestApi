@@ -7,7 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("tagConverter")
 @Slf4j
 public class TagConverter implements Converter<Tag, TagModel>{
     @Autowired

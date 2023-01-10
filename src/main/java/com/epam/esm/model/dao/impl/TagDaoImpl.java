@@ -25,7 +25,7 @@ public class TagDaoImpl implements TagDao {
     public Tag getById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         Tag tag = (Tag) session.get(Tag.class,id);
-        log.info("get tag from table by id");
+        log.info("get tag " + tag.getName() + " from table by id " + id );
         return tag;
     }
 
@@ -33,7 +33,7 @@ public class TagDaoImpl implements TagDao {
     public List<Tag> getAll() {
         Session session = sessionFactory.getCurrentSession();
         List<Tag> tags = session.createQuery("from tag").list();
-        log.info("get all tags from table");
+        log.info("get all tags " + tags + " from table");
         return tags;
     }
 
@@ -41,14 +41,14 @@ public class TagDaoImpl implements TagDao {
     public void insert(Tag item) {
         Session session = sessionFactory.getCurrentSession();
         session.save(item);
-        log.info("tag was saved");
+        log.info("tag " + item + " was saved");
     }
 
     @Override
-    public void removeById(Long id) {
+    public void remove(Tag item) {
         Session session = sessionFactory.getCurrentSession();
-        session.delete(id);
-        log.info("delete tag from table by id");
+        session.delete(item);
+        log.info("delete tag " + item + " from table");
     }
 
     @Override
@@ -57,16 +57,16 @@ public class TagDaoImpl implements TagDao {
         Query firstQuery = session.createQuery("from gift_certificate g join g.tags t  where t.name = :name");
         firstQuery.setParameter("name", name);
         List<GiftCertificate> giftCertificates = firstQuery.list();
-        log.info("get certificates from table by tags name ");
+        log.info("get certificates " + giftCertificates + " from table by tags name " + name);
 
         Query secondQuery = session.createQuery("from tag where name =:name");
         secondQuery.setParameter("name",name);
         List<Tag> tags = secondQuery.list();
-        log.info("get tags from table by name");
+        log.info("get tags " + tags + " from table by name" + name);
 
         Map<List<GiftCertificate>,List<Tag>> result = new HashMap<>();
         result.put(giftCertificates,tags);
-        log.info("make map with gift certificates and tags");
+        log.info("make map " + result + " with gift certificates and tags");
         return result;
     }
 }

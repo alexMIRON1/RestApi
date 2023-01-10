@@ -29,9 +29,9 @@ public interface CRDDao<T> {
     void insert(T item);
 
     /**
-     * Method for removing an entity from a table by ID.
-     * @param id ID of entity to remove
+     * Method for removing an entity from a table.
+     * @param item entity to remove
      */
-    void removeById(Long id);
+    void remove(T item);
 
 }
