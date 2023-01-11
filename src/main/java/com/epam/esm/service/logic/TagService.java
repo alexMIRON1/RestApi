@@ -1,5 +1,6 @@
 package com.epam.esm.service.logic;
 
+import com.epam.esm.model.entity.GiftCertificate;
 import com.epam.esm.service.dto.GiftCertificateModel;
 import com.epam.esm.service.dto.TagModel;
 
@@ -17,5 +18,5 @@ public interface TagService extends CRDService<TagModel>{
      * @param name name of tags to get
      * @return map where key is list of certificate's model, values is list of tag's model
      */
-    Map<List<GiftCertificateModel>, List<TagModel>> getCertificatesWithTags(String name);
+    Map<List<GiftCertificate>, List<TagModel>> getCertificatesWithTags(String name);
 }

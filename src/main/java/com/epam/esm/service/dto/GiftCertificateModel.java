@@ -10,6 +10,7 @@ import lombok.Setter;
 import java.time.Instant;
 import java.time.Period;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Getter
@@ -34,10 +35,11 @@ public class GiftCertificateModel {
         this.tags.add(tag);
         tag.getCertificates().add(this);
     }
-    public void removeTag(TagModel tag){
-//        tags.forEach(tagModel -> System.out.println(tagModel.getName()));
-        this.tags.remove(tag);
-        tag.getCertificates().remove(this);
-//        tags.forEach(tagModel -> System.out.println(tagModel.getName()));
+    public void removeTag(Long tagId){
+        TagModel tag = this.tags.stream().filter(t->Objects.equals(t.getId(), tagId)).findFirst().orElse(null);
+        if(tag!=null){
+            this.tags.remove(tag);
+            tag.getCertificates().remove(this);
+        }
     }
 }

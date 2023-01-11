@@ -12,7 +12,6 @@ public class GiftCertificateDeserializer extends JsonDeserializer<Period> {
     public Period deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
             throws IOException {
         String days = jsonParser.getText();
-        System.out.println(days);
         return Period.ofDays(Integer.parseInt(days));
     }
 }

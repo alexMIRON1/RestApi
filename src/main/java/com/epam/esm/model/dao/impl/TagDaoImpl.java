@@ -46,15 +46,16 @@ public class TagDaoImpl implements TagDao {
 
     @Override
     public void remove(Tag item) {
-        Session session = sessionFactory.getCurrentSession();
-        session.delete(item);
+        Session session = this.sessionFactory.getCurrentSession();
+        session.createQuery("delete from tag t where t.id= :id ").setParameter("id",item.getId())
+                .executeUpdate();
         log.info("delete tag " + item + " from table");
     }
 
     @Override
     public Map<List<GiftCertificate>, List<Tag>> getCertificatesWithTags(String name) {
         Session session = sessionFactory.getCurrentSession();
-        Query<GiftCertificate> firstQuery = session.createQuery("from gift_certificate g join g.tags t  where t.name = :name");
+        Query<GiftCertificate> firstQuery = session.createQuery("select g from gift_certificate g join g.tags t  where t.name = :name");
         firstQuery.setParameter("name", name);
         List<GiftCertificate> giftCertificates = firstQuery.list();
         log.info("get certificates " + giftCertificates + " from table by tags name " + name);

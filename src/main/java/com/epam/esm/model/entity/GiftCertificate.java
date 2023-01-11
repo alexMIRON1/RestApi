@@ -30,7 +30,7 @@ import java.util.Set;
 @Table(name = "gift_certificate")
 public class GiftCertificate {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinTable(name = "certificate_tag",joinColumns = @JoinColumn(name = "certificate_id"),

@@ -1,5 +1,6 @@
 package com.epam.esm.controller.controllers;
 
+import com.epam.esm.model.entity.GiftCertificate;
 import com.epam.esm.service.dto.GiftCertificateModel;
 import com.epam.esm.service.dto.TagModel;
 import com.epam.esm.service.logic.GiftCertificateService;
@@ -106,15 +107,13 @@ public class TagController {
      * @return void
      */
     @DeleteMapping("/{tagId}/certificates/{certId}")
-    //TODO:Method does not work, fix it later.
     public ResponseEntity<Void> removeTagFromCertificate(@PathVariable("tagId") Long tagId,
                                                          @PathVariable("certId") Long certId){
-        TagModel tagModel = tagService.getById(tagId);
         GiftCertificateModel certificateModel = certificateService.getById(certId);
-        if(tagModel!=null && certificateModel!=null){
-            certificateModel.removeTag(tagModel);
+        if(tagId!=null && certificateModel!=null){
+            certificateModel.removeTag(tagId);
             certificateService.update(certificateModel);
-            log.info("tag " + tagModel + "was deleted from certificate " + certificateModel);
+            log.info("tag " + tagId + " was deleted from certificate " + certificateModel);
             return new ResponseEntity<>(HttpStatus.OK);
         }
         log.error("tag model or/and certificate model is/are null ");
@@ -144,9 +143,9 @@ public class TagController {
      * @return map list of certificates and list of tags
      */
     @GetMapping("/certificates")
-    public ResponseEntity<Map<List<GiftCertificateModel>,List<TagModel>>> getCertificatesWithTags(
+    public ResponseEntity<Map<List<GiftCertificate>,List<TagModel>>> getCertificatesWithTags(
             @RequestParam(value="name")String tagName){
-        Map<List<GiftCertificateModel>,List<TagModel>> map = tagService.getCertificatesWithTags(tagName);
+        Map<List<GiftCertificate>,List<TagModel>> map = tagService.getCertificatesWithTags(tagName);
         if(map!=null){
             log.info("get map " + map + " by specific tag's name " + tagName );
             return new ResponseEntity<>(map,HttpStatus.OK);

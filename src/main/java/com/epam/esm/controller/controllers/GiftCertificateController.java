@@ -103,9 +103,10 @@ public class GiftCertificateController {
     public ResponseEntity<Void> update(@PathVariable("certName") String name,
                                        @RequestBody GiftCertificateModel certificateModel){
         if(certificateModel!=null){
-            certificateModel.setName(name);
-            giftCertificateService.update(certificateModel);
-            log.info("gift certificate " + certificateModel.getId() +  " was updated with name" + name);
+            GiftCertificateModel giftCertificateModel = giftCertificateService.getById(certificateModel.getId());
+            giftCertificateModel.setName(name);
+            giftCertificateService.update(giftCertificateModel);
+            log.info("gift certificate " + giftCertificateModel.getId() +  " was updated with name" + name);
             return new ResponseEntity<>(HttpStatus.OK);
         }
         log.error("certificate model is null");
@@ -117,7 +118,7 @@ public class GiftCertificateController {
      * @param description certificate's description
      * @return map, key is list of gift certificates, value is list of tags
      */
-    @GetMapping("/{certDescription}")
+    @GetMapping("/tags/{certDescription}")
     public ResponseEntity<Map<List<GiftCertificateModel>,List<TagModel>>> getCertificatesWithTagsByPartOfDescription(
             @PathVariable("certDescription") String description){
         Map<List<GiftCertificateModel>,List<TagModel>> map = giftCertificateService

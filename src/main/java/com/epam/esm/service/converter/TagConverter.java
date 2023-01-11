@@ -15,8 +15,9 @@ public class TagConverter implements Converter<Tag, TagModel>{
     @Override
     public TagModel convertToModel(Tag entity) {
         if(entity!=null){
-            log.info( entity.getId() + "tag entity was successfully converted to model");
-            return modelMapper.map(entity,TagModel.class);
+            TagModel model = modelMapper.map(entity,TagModel.class);
+            log.info( model.getId() + "tag entity was successfully converted to model");
+            return model;
         }
         log.debug("tag entity was not converted to model -> entity is null");
         return null;
@@ -25,8 +26,9 @@ public class TagConverter implements Converter<Tag, TagModel>{
     @Override
     public Tag convertToEntity(TagModel model) {
         if(model!=null){
-            log.info(model.getId() + "tag model was successfully converted to entity");
-            return modelMapper.map(model,Tag.class);
+            Tag entity = modelMapper.map(model,Tag.class);
+            log.info(entity.getId() + "tag model was successfully converted to entity");
+            return entity;
         }
         log.debug("tag model was not converted to entity -> model is null");
         return null;

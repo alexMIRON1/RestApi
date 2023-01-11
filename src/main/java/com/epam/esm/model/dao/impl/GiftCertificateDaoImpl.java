@@ -47,7 +47,8 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
     @Override
     public void remove(GiftCertificate item) {
         Session session = sessionFactory.getCurrentSession();
-        session.delete(item);
+        session.createQuery("delete from gift_certificate g where g.id= :id ")
+                .setParameter("id",item.getId()).executeUpdate();
         log.info("successfully deleted giftCertificate from table -> " + item.getName());
     }
 
