@@ -54,12 +54,12 @@ public class TagDaoImpl implements TagDao {
     @Override
     public Map<List<GiftCertificate>, List<Tag>> getCertificatesWithTags(String name) {
         Session session = sessionFactory.getCurrentSession();
-        Query firstQuery = session.createQuery("from gift_certificate g join g.tags t  where t.name = :name");
+        Query<GiftCertificate> firstQuery = session.createQuery("from gift_certificate g join g.tags t  where t.name = :name");
         firstQuery.setParameter("name", name);
         List<GiftCertificate> giftCertificates = firstQuery.list();
         log.info("get certificates " + giftCertificates + " from table by tags name " + name);
 
-        Query secondQuery = session.createQuery("from tag where name =:name");
+        Query<Tag> secondQuery = session.createQuery("from tag where name =:name");
         secondQuery.setParameter("name",name);
         List<Tag> tags = secondQuery.list();
         log.info("get tags " + tags + " from table by name" + name);

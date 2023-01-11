@@ -17,8 +17,9 @@ public class GiftCertificateConverter implements Converter<GiftCertificate,GiftC
     @Override
     public GiftCertificateModel convertToModel(GiftCertificate entity) {
         if(entity!=null){
+            GiftCertificateModel certificateModel = modelMapper.map(entity,GiftCertificateModel.class);
             log.info("certificate entity was successfully converted to model");
-            return modelMapper.map(entity,GiftCertificateModel.class);
+            return certificateModel;
         }
         log.debug("certificate entity was not converted to model -> entity is null");
         return null;

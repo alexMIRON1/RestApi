@@ -1,5 +1,6 @@
 package com.epam.esm.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -23,7 +24,7 @@ import java.util.Set;
 @Table(name = "tag")
 public class Tag {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @ManyToMany(mappedBy = "tags")
     @ToString.Exclude

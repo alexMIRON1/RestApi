@@ -29,7 +29,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     @Override
     public GiftCertificateModel getById(Long id) {
         GiftCertificateModel certificateModel = converter.convertToModel(giftCertificateDao.getById(id));
-        log.info("get by id certificateModel " + certificateModel + " by id = " + id);
+        log.info("get by id certificateModel " + certificateModel.getName() + " by id = " + id);
         return certificateModel;
     }
 
@@ -44,7 +44,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     @Override
     public void insert(GiftCertificateModel model) {
         model.setCreateDate(Instant.now());
-        model.setLastUpdate(Instant.now());
+        model.setLastUpdateDate(Instant.now());
         giftCertificateDao.insert(converter.convertToEntity(model));
         log.info("saved certificateModel " + model.getName());
     }
@@ -57,9 +57,9 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
 
     @Override
     public void update(GiftCertificateModel model) {
-        model.setLastUpdate(Instant.now());
+        model.setLastUpdateDate(Instant.now());
         giftCertificateDao.update(converter.convertToEntity(model));
-        log.info("updated certificateModel " + model);
+        log.info("updated certificateModel " + model.getName());
     }
 
     @Override
