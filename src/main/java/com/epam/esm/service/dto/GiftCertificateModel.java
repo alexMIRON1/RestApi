@@ -2,10 +2,10 @@ package com.epam.esm.service.dto;
 
 import com.epam.esm.service.deserializers.GiftCertificateDeserializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.Instant;
 import java.time.Period;
@@ -15,6 +15,7 @@ import java.util.Set;
 
 @Getter
 @Setter
+@ToString
 public class GiftCertificateModel {
     private Long id;
     private Set<TagModel> tags = new HashSet<>();
@@ -42,4 +43,5 @@ public class GiftCertificateModel {
             tag.getCertificates().remove(this);
         }
     }
+
 }

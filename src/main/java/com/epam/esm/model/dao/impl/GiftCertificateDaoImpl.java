@@ -62,13 +62,13 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
     @Override
     public Map<List<GiftCertificate>, List<Tag>> getCertificatesWithTagsByPartOfDescription(String description) {
         Session session = sessionFactory.getCurrentSession();
-        Query<Tag> firstQuery = session.createQuery("from tag t join t.certificates c where c.description like ?");
-        firstQuery.setParameter(0,"%"+description+"%");
+        Query<Tag> firstQuery = session.createQuery("select t from tag t join t.certificates c where c.description like :description");
+        firstQuery.setParameter("description","%"+description+"%");
         List<Tag> tags = firstQuery.list();
         log.info("get " + tags + " by certificate's description -> " + description);
 
-        Query secondQuery = session.createQuery("from gift_certificate where description like ?");
-        secondQuery.setParameter(0,"%"+description+"%");
+        Query<GiftCertificate> secondQuery = session.createQuery("select g from gift_certificate g  where description like :description");
+        secondQuery.setParameter("description","%"+description+"%");
         List<GiftCertificate> giftCertificates = secondQuery.list();
         log.info("get " + giftCertificates+  " by certificate's description -> " + description);
 
@@ -82,11 +82,11 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
     public Map<List<GiftCertificate>, List<Tag>> getCertificatesWithTagsSortByCreateDateASC() {
         Session session = sessionFactory.getCurrentSession();
         List<Tag> tags =  session.
-                createQuery("from tag t join t.certificates c order by c.createDate asc").list();
+                createQuery("select t from tag t join t.certificates c order by c.createDate asc").list();
         log.info("get tags order by certificate's create date - > " + tags);
 
         List<GiftCertificate> certificates = session.
-                createQuery("from gift_certificate c order by c.createDate asc").list();
+                createQuery("select c from gift_certificate c order by c.createDate asc").list();
         log.info("get certificates order by certificate's create date -> " + certificates);
         Map<List<GiftCertificate>, List<Tag>> result = new HashMap<>();
         result.put(certificates,tags);

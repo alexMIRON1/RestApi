@@ -26,6 +26,8 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     @Autowired
     @Qualifier("certificateConverter")
     private Converter<GiftCertificate,GiftCertificateModel> converter;
+    @Autowired
+    private TagConverter tagConverter;
     @Override
     public GiftCertificateModel getById(Long id) {
         GiftCertificateModel certificateModel = converter.convertToModel(giftCertificateDao.getById(id));
@@ -72,7 +74,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
                 .collect(Collectors.toMap(k->k.getKey().stream()
                         .map(giftCertificate -> converter.convertToModel(giftCertificate))
                         .collect(Collectors.toList()), v->v.getValue().stream()
-                        .map(tag -> new TagConverter().convertToModel(tag)).collect(Collectors.toList())));
+                        .map(tag -> tagConverter.convertToModel(tag)).collect(Collectors.toList())));
     }
 
     @Override
@@ -84,6 +86,6 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
                 .collect(Collectors.toMap(k->k.getKey().stream()
                         .map(giftCertificate -> converter.convertToModel(giftCertificate))
                         .collect(Collectors.toList()), v->v.getValue().stream()
-                        .map(tag -> new TagConverter().convertToModel(tag)).collect(Collectors.toList())));
+                        .map(tag -> tagConverter.convertToModel(tag)).collect(Collectors.toList())));
     }
 }

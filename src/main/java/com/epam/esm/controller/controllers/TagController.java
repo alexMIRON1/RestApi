@@ -143,9 +143,9 @@ public class TagController {
      * @return map list of certificates and list of tags
      */
     @GetMapping("/certificates")
-    public ResponseEntity<Map<List<GiftCertificate>,List<TagModel>>> getCertificatesWithTags(
+    public ResponseEntity<Map<List<GiftCertificateModel>,List<TagModel>>> getCertificatesWithTags(
             @RequestParam(value="name")String tagName){
-        Map<List<GiftCertificate>,List<TagModel>> map = tagService.getCertificatesWithTags(tagName);
+        Map<List<GiftCertificateModel>,List<TagModel>> map = tagService.getCertificatesWithTags(tagName);
         if(map!=null){
             log.info("get map " + map + " by specific tag's name " + tagName );
             return new ResponseEntity<>(map,HttpStatus.OK);

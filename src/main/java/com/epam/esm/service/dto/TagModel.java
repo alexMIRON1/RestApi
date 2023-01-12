@@ -15,4 +15,10 @@ public class TagModel {
     private Set<GiftCertificateModel> certificates = new HashSet<>();
 
     private String name;
+
+    @Override
+    public String toString() {
+        return "id:"+id +","+
+                "name"+name + ",";
+    }
 }

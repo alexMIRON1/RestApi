@@ -26,6 +26,8 @@ public class TagServiceImpl implements TagService {
     @Autowired
     @Qualifier("tagConverter")
     private Converter<Tag,TagModel> converter;
+    @Autowired
+    private GiftCertificateConverter giftCertificateConverter;
 
     @Override
     public TagModel getById(Long id) {
@@ -55,12 +57,14 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public Map<List<GiftCertificate>, List<TagModel>> getCertificatesWithTags(String name) {
+    public Map<List<GiftCertificateModel>, List<TagModel>> getCertificatesWithTags(String name) {
         Map<List<GiftCertificate>, List<Tag>> entitiesResult = tagDao.getCertificatesWithTags(name);
         log.info("successfully get map of certificates and tags " + entitiesResult +
                 " by specific tag's name -> " + name);
         return entitiesResult.entrySet().stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, v->v.getValue().stream()
+                .collect(Collectors.toMap(k->k.getKey().stream()
+                        .map(giftCertificate -> giftCertificateConverter.convertToModel(giftCertificate))
+                        .collect(Collectors.toList()), v->v.getValue().stream()
                         .map(tag -> converter.convertToModel(tag)).collect(Collectors.toList())));
     }
 }
