@@ -32,7 +32,7 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
     @Override
     public List<GiftCertificate> getAll() {
         Session session = sessionFactory.getCurrentSession();
-        List<GiftCertificate> giftCertificates = session.createQuery(" from gift_certificate").list();
+        List<GiftCertificate> giftCertificates = session.createQuery(" select  g from gift_certificate g ").list();
         log.info("got list of giftCertificate from table " + giftCertificates);
         return giftCertificates;
     }

@@ -7,11 +7,12 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import java.io.IOException;
 import java.time.Period;
 
-public class GiftCertificateDeserializer extends JsonDeserializer<Period> {
+public class GiftCertificatePeriodDeserializer extends JsonDeserializer<Period> {
     @Override
     public Period deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
             throws IOException {
         String days = jsonParser.getText();
         return Period.ofDays(Integer.parseInt(days));
     }
+
 }

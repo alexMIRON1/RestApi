@@ -1,8 +1,10 @@
 package com.epam.esm.service.dto;
 
-import com.epam.esm.service.deserializers.GiftCertificateDeserializer;
+import com.epam.esm.service.deserializers.GiftCertificatePeriodDeserializer;
+import com.epam.esm.service.serializers.GiftCertificateInstantSerializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -25,12 +27,13 @@ public class GiftCertificateModel {
     private String description;
 
     private Double price;
-    @JsonDeserialize(using = GiftCertificateDeserializer.class)
+    @JsonDeserialize(using = GiftCertificatePeriodDeserializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Period duration;
 
+    @JsonSerialize(using = GiftCertificateInstantSerializer.class)
     private Instant createDate;
-
+    @JsonSerialize(using = GiftCertificateInstantSerializer.class)
     private Instant lastUpdateDate;
     public void addTag(TagModel tag){
         this.tags.add(tag);
