@@ -6,7 +6,7 @@ It is a REST API's application written in java. We have two entities gift_certif
 
 ## Technologies
 
-1. Java Core (Collections, Generics, Java 8,java.time.*).
+1. Java Core (Collections, Generics, Java 8, java.time.*).
 2. Apache Tomcat 9 as servlet container.
 3. To store data used relation database - MySQL.
 4. For access to data used Hibernate.
