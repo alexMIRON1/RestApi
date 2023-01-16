@@ -10,7 +10,7 @@ It is a REST API's application written in java. We have two entities gift_certif
 2. Apache Tomcat 9 as servlet container.
 3. To store data used relation database - MySQL.
 4. For access to data used Hibernate.
-5. Application container: Spring IoC. Spring Framework.
+5. Application container: Spring IoC. Spring Framework, Spring MVC.
 6. Lombok, Model Mapper.
 7. Build tool: Maven.
 8. Documented code and commented code(using log4j).
