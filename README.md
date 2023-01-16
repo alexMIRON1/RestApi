@@ -13,5 +13,5 @@ It is a REST API's application written in java. We have two entities gift_certif
 5. Application container: Spring IoC. Spring Framework.
 6. Lombok, Model Mapper.
 7. Build tool: Maven.
-8. Documented code.
+8. Documented code and commented code(using log4j).
 9. JSON
